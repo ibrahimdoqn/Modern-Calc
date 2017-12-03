@@ -248,6 +248,7 @@ class ViewController: UIViewController {
                 loops += 1
             }
             sonuc.text = "!" + String(fuctoo)
+            islem.text = sayi2 + "!"
             sayi1 = ""
         }
         else{
@@ -257,9 +258,9 @@ class ViewController: UIViewController {
                 loops += 1
             }
             sonuc.text = "!" + String(fuctoo)
+            islem.text = sayi1 + "!"
         }
         fucto = true
-        islem.text = sayi1 + sayi2 + "!"
         }
     }
     }
