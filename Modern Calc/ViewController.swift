@@ -10,16 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var islem: UILabel!
-    @IBOutlet weak var sonuc: UILabel!
+    @IBOutlet weak var sonuc: UILabel!//.text sonuc ekranı
+    @IBOutlet weak var wantto: UILabel!
     
-    var sayi1 = ""
-    var sayi2 = ""
-    var islem1 = 0
-    var islem2 = 0
-    var sonucc = 0
-    var saycontrol = false
-    var isslem = false
-    var loops = 0
+    var sayi1 = ""//str 1. giriş
+    var sayi2 = ""//str 2. giriş
+    var islem1 = 0//her yapılan işlemde 1 artar
+    var islem2 = 0//Yapılacak işlemi hafızada tutar
+    var sonucc = 0// int sonuc değeri
+    var saycontrol = false// Sayi 1 Sayi değerinin içinin boş olup olmadığına bakar
+    var isslem = false// İşlem fonksiyonunun kullanılıp kullanılmadığını kontrol eder
+    var loops = 0// While döngüsünde kullanılmak üzere yaratıldı
+    var fucto = false
     
     func islemm () {
         if islem2 == 1{
@@ -39,7 +41,7 @@ class ViewController: UIViewController {
             sonuc.text = String(sonucc)
         }
     }
-    
+
     func breakk () {
         sonucc = 0
         sonuc.text = "Hata"
@@ -48,10 +50,12 @@ class ViewController: UIViewController {
         islem2 = 0
         sayi1 = ""
         sayi2 = ""
+        fucto = false
     }
     
     func sayiOne (x : String){
-        isslem = false
+        isslem = false//İşlem fonksiyonun görevi biter
+        if fucto == false {
         if islem1 == 0 {
             sayi1.append(x)
             islem.text?.append(x)
@@ -63,7 +67,20 @@ class ViewController: UIViewController {
             
         }
     }
-    
+    }
+    func silme (){
+        if fucto == false{
+        if islem1 == 0 {
+            sayi1 = String(sayi1.dropLast())
+            islem.text! = String(islem.text!.dropLast())
+        }
+        
+        if islem1 >= 1 {
+            sayi2 = String(sayi2.dropLast())
+            islem.text! = String(islem.text!.dropLast())
+        }
+    }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         islem.text = ""
@@ -102,31 +119,34 @@ class ViewController: UIViewController {
     }
     //Sayılar bitis
     //Fonksiyonlar +-*/
-    @IBAction func topla(_ sender: Any) {
-        if isslem == true {
+    @IBAction func topla(_ sender: Any){
+        if fucto == false{
+        if isslem == true {//Kendisinden önceki 3 satırı siler
             while loops < 3 {
                 islem.text = String(islem.text!.dropLast())
                 loops += 1
             }
-            loops = 0
+            loops = 0//Döngüyü sıfırlar
         }
-            islem.text?.append(" + ")
-            if islem1 >= 1 && isslem == false{
+            islem.text?.append(" + ")// İslem ekranına + basar
+            if islem1 >= 1 && isslem == false{//islem değeri 1 ve daha önce islem fonk yapılmadı ise sonucu hesaplar
                 islemm ()
                 sayi1 = String(sonucc)
                 sayi2 = ""
             }
-        saycontrol = sayi1.isEmpty
+        saycontrol = sayi1.isEmpty//Sayı 1 boş mu kontol eder
         if saycontrol == false{
             islem1 += 1
         }
         else {
             breakk()
         }
-        islem2 = 1
-        isslem = true
+        islem2 = 1//Yapılacak işlem değerini sisteme girer
+        isslem = true//İşlem fonk yapıldığını gösterir
+    }
     }
     @IBAction func cikar(_ sender: Any) {
+        if fucto == false{
         if isslem == true {
             while loops < 3 {
                 islem.text = String(islem.text!.dropLast())
@@ -150,7 +170,9 @@ class ViewController: UIViewController {
         islem2 = 2
         isslem = true
     }
-    @IBAction func carp(_ sender: Any) {
+    }
+    @IBAction func carp(_ sender: Any){
+        if fucto == false{
         if isslem == true {
             while loops < 3 {
                 islem.text = String(islem.text!.dropLast())
@@ -174,7 +196,9 @@ class ViewController: UIViewController {
         islem2 = 3
         isslem = true
     }
+    }
     @IBAction func bol(_ sender: Any) {
+        if fucto == false{
         if isslem == true {
             while loops < 3 {
                 islem.text = String(islem.text!.dropLast())
@@ -198,7 +222,47 @@ class ViewController: UIViewController {
         islem2 = 4
         isslem = true
     }
+    }
     //Fonksiyonlar bitiş
+    
+    //C Ve Factoriel
+    @IBAction func buttonSilme(_ sender: Any) {
+        silme()
+    }
+    @IBAction func buttonFucto(_ sender: Any){
+        saycontrol = sayi1.isEmpty
+        if saycontrol == true {
+            sayi1 = "0"
+        }
+        saycontrol = sayi2.isEmpty
+        if saycontrol == true {
+            sayi2 = "0"
+        }
+        if Int(sayi1)! < 21 && Int(sayi2)! < 21 {
+        if fucto == false {
+        var fuctoo = 1
+        if islem1 > 1 {
+            loops = 1
+            while loops <= Int(sayi2)! {
+                fuctoo *= loops
+                loops += 1
+            }
+            sonuc.text = "!" + String(fuctoo)
+            sayi1 = ""
+        }
+        else{
+            loops = 1
+            while loops <= Int(sayi1)! {
+                fuctoo *= loops
+                loops += 1
+            }
+            sonuc.text = "!" + String(fuctoo)
+        }
+        fucto = true
+        islem.text = sayi1 + sayi2 + "!"
+        }
+    }
+    }
     //Eşittir
     @IBAction func sonuc(_ sender: Any) {
         saycontrol = sayi2.isEmpty
@@ -238,7 +302,11 @@ class ViewController: UIViewController {
         islem2 = 0
         sayi1 = ""
         sayi2 = ""
+        fucto = false
     }
-    
+    //wantto func
+    @IBAction func wanttoButton(_ sender: Any) {
+        wantto.text = ""
+    }
     
 }
