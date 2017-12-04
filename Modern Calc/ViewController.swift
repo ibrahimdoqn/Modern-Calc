@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     var isslem = false// İşlem fonksiyonunun kullanılıp kullanılmadığını kontrol eder
     var loops = 0// While döngüsünde kullanılmak üzere yaratıldı
     var fucto = false
+    let valueSifre = "12041998"
     
     func islemm () {
         if islem2 == 1{
@@ -307,7 +308,14 @@ class ViewController: UIViewController {
     }
     //wantto func
     @IBAction func wanttoButton(_ sender: Any) {
-        wantto.text = ""
+        if sayi1 == valueSifre{
+            wantto.text = ""
+        }
+    }
+    @IBAction func Wantto2(_ sender: Any) {
+        if sayi1 == valueSifre{
+            wantto.text = "Created By İbrahim DOĞAN"
+        }
     }
     
 }
